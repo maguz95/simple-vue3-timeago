@@ -8,12 +8,16 @@
 import { defineComponent } from 'vue';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+
+import {timezones} from './data/timezones';
 
 export default /*#__PURE__*/defineComponent({
   name: 'Vue3Timeago', // vue component name
   props: {
     datetime: {
-      type: String,
+      type: String as () => string | Date,
       required: true,
     },
     live: {
@@ -43,15 +47,26 @@ export default /*#__PURE__*/defineComponent({
     },
   },
   setup(props) {
+    require(`dayjs/locale/${props.locale.split('-')[0]}`);
     console.log('Vue3Timeago setup')
     dayjs.extend(relativeTime)
-    console.log(props.datetime)
+    dayjs.extend(utc)
+    dayjs.extend(timezone)
 
-    const difference = dayjs(props.datetime).fromNow();
+    dayjs.locale(props.locale.split('-')[0])
 
-    console.log(difference)
+    let difference;
+    if(props.relativeDate){
+      difference = timezones.some(tz => tz === props.timezone)
+        ? dayjs(props.datetime).tz(props.timezone).from(dayjs(props.relativeDate).tz(props.timezone))
+        : dayjs(props.datetime).tz('Europe/Rome').from(dayjs(props.relativeDate).tz('Europe/Rome'))
+    } else {
+      difference = timezones.some(tz => tz === props.timezone)
+        ? dayjs(props.datetime).tz(props.timezone).fromNow()
+        : dayjs(props.datetime).tz('Europe/Rome').fromNow()
+    }
 
-    return {difference}
+    return { difference }
   },
 });
 </script>
