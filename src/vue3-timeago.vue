@@ -1,6 +1,6 @@
 <template>
   <div class="vue3-timeago">
-    <p>The date is: {{difference}}</p>
+    <p>The date was: {{difference}}</p>
   </div>
 </template>
 
@@ -31,6 +31,11 @@ export default /*#__PURE__*/defineComponent({
       required: false,
       default: 'it-IT',
     },
+    timezone: {
+      type: String,
+      required: false,
+      default: 'Europe/Rome',
+    },
     updateInterval: {
       type: Number,
       required: false,
@@ -38,9 +43,10 @@ export default /*#__PURE__*/defineComponent({
     },
   },
   setup(props) {
-    console.log('Vue3Timeago setup');
+    console.log('Vue3Timeago setup')
     dayjs.extend(relativeTime)
-    console.log(props.datetime);
+    console.log(props.datetime)
+
     const difference = dayjs(props.datetime).fromNow();
 
     console.log(difference)

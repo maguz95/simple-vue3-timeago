@@ -12,6 +12,6 @@ export default defineComponent({
 
 <template>
   <div id="app">
-    <vue3-timeago datetime="2021-12-11"/>
+    <vue3-timeago datetime="2021-12-27"/>
   </div>
 </template>
