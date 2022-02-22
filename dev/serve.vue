@@ -12,6 +12,6 @@ export default defineComponent({
 
 <template>
   <div id="app">
-    <vue3-timeago datetime="2021-12-27 14:00:00" timezone="Asia" locale="en-EN" relativeDate="2021-12-27 18:00:00" />
+    <vue3-timeago datetime="2022-02-20 11:32:00" locale="it_IT" live />
   </div>
 </template>
