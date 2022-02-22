@@ -1,87 +1,69 @@
 <template>
-  <div class="vue3-timeago">
-    <p>The date was: {{difference}}</p>
-  </div>
+  <span>{{result}}</span>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import timezone from 'dayjs/plugin/timezone';
-import utc from 'dayjs/plugin/utc';
-
-import {timezones} from './data/timezones';
+import { defineComponent, ref, onBeforeUnmount, Ref } from 'vue';
+import { createDate, getDiffIdx, getDiffSec, getLocaleDiff } from './utils/date';
 
 export default /*#__PURE__*/defineComponent({
   name: 'Vue3Timeago', // vue component name
   props: {
     datetime: {
-      type: String as () => string | Date,
+      type: String as () => Date | string,
       required: true,
     },
-    live: {
-      type: Boolean,
+    locale: {
+      type: String,
       required: false,
-      default: true,
+      default: 'it_IT',
     },
     relativeDate: {
       type: String,
       required: false,
       default: null,
     },
-    locale: {
-      type: String,
+    live: {
+      type: Boolean,
       required: false,
-      default: 'it-IT',
+      default: false,
     },
-    timezone: {
-      type: String,
-      required: false,
-      default: 'Europe/Rome',
-    },
-    updateInterval: {
+    liveInterval: {
       type: Number,
       required: false,
-      default: 1000,
+      default: 10000,
     },
   },
   setup(props) {
-    require(`dayjs/locale/${props.locale.split('-')[0]}`);
-    console.log('Vue3Timeago setup')
-    dayjs.extend(relativeTime)
-    dayjs.extend(utc)
-    dayjs.extend(timezone)
+    const { datetime, locale, live, liveInterval } = props;
 
-    dayjs.locale(props.locale.split('-')[0])
+    const calculateDifference = () => {
+      const date = createDate(datetime)
+      const relativeDate = props.relativeDate ? createDate(props.relativeDate) : new Date()
 
-    let difference;
-    if(props.relativeDate){
-      difference = timezones.some(tz => tz === props.timezone)
-        ? dayjs(props.datetime).tz(props.timezone).from(dayjs(props.relativeDate).tz(props.timezone))
-        : dayjs(props.datetime).tz('Europe/Rome').from(dayjs(props.relativeDate).tz('Europe/Rome'))
-    } else {
-      difference = timezones.some(tz => tz === props.timezone)
-        ? dayjs(props.datetime).tz(props.timezone).fromNow()
-        : dayjs(props.datetime).tz('Europe/Rome').fromNow()
+      const dateDifference = getDiffSec(date, relativeDate);
+
+      const [computedDiff, timeIndex, agoIndex] = getDiffIdx(dateDifference)
+
+      return getLocaleDiff(computedDiff, timeIndex, agoIndex, locale)
     }
 
-    return { difference }
+    let result:Ref<String> = ref('');
+    let relativeDateTimer:number;
+
+    result.value = calculateDifference();
+
+    if(live) {
+      relativeDateTimer = window.setInterval(() => {
+        result.value = calculateDifference()
+      }, liveInterval);
+    }
+
+    onBeforeUnmount(() => {
+      clearInterval(relativeDateTimer);
+    });
+
+    return { result }
   },
 });
 </script>
-
-<style scoped>
-  .vue3-timeago {
-    display: block;
-    width: 400px;
-    margin: 25px auto;
-    border: 1px solid #ccc;
-    background: #eaeaea;
-    text-align: center;
-    padding: 25px;
-  }
-  .vue3-timeago p {
-    margin: 0 0 1em;
-  }
-</style>
