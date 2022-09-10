@@ -16,7 +16,7 @@ export default /*#__PURE__*/defineComponent({
     locale: {
       type: String,
       required: false,
-      default: 'it_IT',
+      default: 'en_US',
     },
     relativeDate: {
       type: String,
