@@ -1,11 +1,11 @@
 {
-  "name": "vue3-timeago",
+  "name": "simple-vue3-timeago",
   "version": "1.0.0",
-  "description": "vue3-timeago is a simple vue component used to format date with `*** time ago` statement. eg: '3 hours ago'.",
-  "main": "dist/vue3-timeago.ssr.js",
-  "browser": "dist/vue3-timeago.esm.js",
-  "module": "dist/vue3-timeago.esm.js",
-  "unpkg": "dist/vue3-timeago.min.js",
+  "description": "simple-vue3-timeago is a simple vue component used to format date with `*** time ago` statement. eg: '3 hours ago'.",
+  "main": "dist/simple-vue3-timeago.ssr.js",
+  "browser": "dist/simple-vue3-timeago.esm.js",
+  "module": "dist/simple-vue3-timeago.esm.js",
+  "unpkg": "dist/simple-vue3-timeago.min.js",
   "types": "dist/types/src/entry.esm.d.ts",
   "files": [
     "dist/*",
@@ -14,7 +14,7 @@
   "author": "maguz95 (https://github.com/maguz95)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/maguz95/vue3-timeago/issues"
+    "url": "https://github.com/maguz95/simple-vue3-timeago/issues"
   },
   "sideEffects": false,
   "scripts": {

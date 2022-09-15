@@ -48,7 +48,7 @@ export default /*#__PURE__*/defineComponent({
       return getLocaleDiff(computedDiff, timeIndex, agoIndex, locale)
     }
 
-    let result:Ref<String> = ref('');
+    let result:Ref<string> = ref('');
     let relativeDateTimer:number;
 
     result.value = calculateDifference();

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Vue3Timeago from '@/vue3-timeago.vue';
+import Vue3Timeago from '@/simple-vue3-timeago.vue';
 
 export default defineComponent({
   name: 'ServeDev',

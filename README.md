@@ -1,22 +1,21 @@
-# vue3-timeago
+# simple-vue3-timeago
 
 
-> vue3-timeago is a simple react component used to format date with `*** time ago` or `in *** time` statement. eg: '3 hours ago' or 'in 3 hours'.
+> simple-vue3-timeago is a simple react component used to format date with `*** time ago` or `in *** time` statement. eg: '3 hours ago' or 'in 3 hours'.
 **This is zero dependency component but it's based on [timeago.js](https://github.com/hustcc/timeago.js)** which is a simple javascript module.
 
  - Realtime render.
- - Simple. Only 2kb.
  - Efficient. When the time is `3 hour ago`, the interval will update after an hour (3600 * 1000 ms).
  - Locales supported (I plan to release more locales in the future).
 
 ## Install
 
 ```bash
-npm install vue3-timeago
+npm install simple-vue3-timeago
 ```
 or
 ```bash
-yarn add vue3-timeago
+yarn add simple-vue3-timeago
 ```
 
 
@@ -24,7 +23,7 @@ yarn add vue3-timeago
 
 ```html
 <script>
-  import Vue3Timeago from 'vue3-timeago';
+  import Vue3Timeago from 'simple-vue3-timeago';
   export default {
     ...
     components: {
